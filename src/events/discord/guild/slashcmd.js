@@ -433,6 +433,12 @@ const handleMessageComponent = async (interaction, client) => {
                                 });
                         }
 
+                        // Defer immediately so the 3s interaction window doesn't expire
+                        // while we hit MongoDB on large guilds.
+                        if (!interaction.deferred && !interaction.replied) {
+                                await interaction.deferUpdate().catch(() => {});
+                        }
+
                         const allCounts = await db.userInviteCounter?.getAllByGuild(guildId) ?? [];
                         allCounts.sort((a, b) => (b.total || 0) - (a.total || 0));
 
@@ -447,7 +453,7 @@ const handleMessageComponent = async (interaction, client) => {
 
                         const { components } = buildInviteLeaderboard(allCounts, newPage, totalPages, guildId, userId);
 
-                        await interaction.update({
+                        await interaction.editReply({
                                 components,
                                 flags: MessageFlags.IsComponentsV2,
                         }).catch(() => {});
@@ -480,6 +486,12 @@ const handleMessageComponent = async (interaction, client) => {
                         });
                 }
 
+                // Defer immediately so the 3s interaction window doesn't expire
+                // while we hit MongoDB on large guilds.
+                if (!interaction.deferred && !interaction.replied) {
+                        await interaction.deferUpdate().catch(() => {});
+                }
+
                 const today = new Date().toISOString().slice(0, 10);
                 const allCounts = await db.userMessageCounter?.getAllByGuild(guildId) ?? [];
 
@@ -505,7 +517,7 @@ const handleMessageComponent = async (interaction, client) => {
                 const mode = isDaily ? 'daily' : 'alltime';
                 const { components } = buildLeaderboard(allCounts, newPage, totalPages, guildId, userId, botName, mode);
 
-                await interaction.update({
+                await interaction.editReply({
                         components,
                         flags: MessageFlags.IsComponentsV2,
                 }).catch(() => {});

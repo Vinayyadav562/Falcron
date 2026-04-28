@@ -45,9 +45,17 @@ export class MongoDatabase {
         }
 
         const schema = new mongoose.Schema(
-            { id: { type: String, required: true, unique: true } },
-            { strict: false, timestamps: true }
+            {
+                id: { type: String, required: true, unique: true },
+                guildId: { type: String, index: true, sparse: true },
+                userId: { type: String, index: true, sparse: true },
+                total: { type: Number, sparse: true },
+            },
+            { strict: false, timestamps: true, minimize: true }
         );
+
+        // Compound index for leaderboard-style queries (find by guild, sort by total desc)
+        schema.index({ guildId: 1, total: -1 }, { sparse: true });
 
         const model =
             mongoose.models[collection] ||

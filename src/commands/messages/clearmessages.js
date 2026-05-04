@@ -1,7 +1,7 @@
 // Falcron | AeroX Development
 // Author: itsfizys
 import { Command } from '#command';
-import { ApplicationCommandOptionType } from 'discord.js';
+import { ApplicationCommandOptionType, PermissionFlagsBits } from 'discord.js';
 import { emoji } from '#emoji';
 import { db } from '#dbManager';
 
@@ -33,11 +33,13 @@ class ClearMessagesCommand extends Command {
                         cooldown: 5,
                         minArgs: 1,
                         examples: ['clearmessages @user'],
-                        userPermissions: ['Administrator'],
+                        userPermissions: [PermissionFlagsBits.Administrator],
+                        permissions: [PermissionFlagsBits.Administrator],
                         enabledSlash: true,
                         slashData: {
                                 name: 'clearmessages',
                                 description: "Reset a user's message count in this server",
+                                defaultMemberPermissions: PermissionFlagsBits.Administrator,
                                 options: [
                                         {
                                                 type: ApplicationCommandOptionType.User,

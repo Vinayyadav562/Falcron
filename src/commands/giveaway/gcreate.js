@@ -1,7 +1,7 @@
 // Falcron | AeroX Development
 // Author: itsfizys
 import { Command } from '#command';
-import { MessageFlags, ApplicationCommandOptionType } from 'discord.js';
+import { MessageFlags, ApplicationCommandOptionType, PermissionFlagsBits } from 'discord.js';
 import { emoji } from '#emoji';
 import {
         giveawayStore,
@@ -29,10 +29,13 @@ class GCreateCommand extends Command {
                         cooldown: 5,
                         minArgs: 3,
                         examples: ['gcreate 1h 2 Nitro Classic'],
+                        userPermissions: [PermissionFlagsBits.ManageGuild],
+                        permissions: [PermissionFlagsBits.ManageGuild],
                         enabledSlash: true,
                         slashData: {
                                 name: 'gcreate',
                                 description: 'Creates a new giveaway',
+                                defaultMemberPermissions: PermissionFlagsBits.ManageGuild,
                                 options: [
                                         {
                                                 type: ApplicationCommandOptionType.String,

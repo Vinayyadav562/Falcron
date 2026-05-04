@@ -12,7 +12,7 @@ import {
 } from 'discord.js';
 import { emoji } from '#emoji';
 
-export const GWAY_EMOJI_ID = '1489479646537056288';
+export const GWAY_EMOJI_ID = emoji.giveaway_react;
 
 export const giveawayStore = new Map();
 

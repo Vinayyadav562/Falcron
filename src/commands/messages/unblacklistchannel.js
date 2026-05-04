@@ -8,6 +8,7 @@ import {
         SeparatorBuilder,
         SeparatorSpacingSize,
         ApplicationCommandOptionType,
+        PermissionFlagsBits,
 } from 'discord.js';
 import { db } from '#dbManager';
 
@@ -36,11 +37,13 @@ class UnblacklistChannelCommand extends Command {
                         usage: 'unblacklistchannel [#channel | channelID]',
                         aliases: ['unblchannel'],
                         cooldown: 5,
-                        userPermissions: ['Administrator'],
+                        userPermissions: [PermissionFlagsBits.Administrator],
+                        permissions: [PermissionFlagsBits.Administrator],
                         enabledSlash: true,
                         slashData: {
                                 name: 'unblacklistchannel',
                                 description: 'Remove a channel from the message counting blacklist',
+                                defaultMemberPermissions: PermissionFlagsBits.Administrator,
                                 options: [
                                         {
                                                 type: ApplicationCommandOptionType.Channel,

@@ -1,13 +1,13 @@
 // Falcron | AeroX Development
 // Author: itsfizys
-import { giveawayStore, GWAY_EMOJI_ID } from '#giveawayUtils';
+import { giveawayStore, GWAY_EMOJI_RAW_ID } from '#giveawayUtils';
 
 export default {
         name: 'messageReactionAdd',
         async execute({ eventArgs }) {
                 const [reaction, user] = eventArgs;
 
-                if (reaction.emoji.id !== GWAY_EMOJI_ID) return;
+                if (reaction.emoji.id !== GWAY_EMOJI_RAW_ID) return;
 
                 if (reaction.partial) {
                         await reaction.fetch().catch(() => null);

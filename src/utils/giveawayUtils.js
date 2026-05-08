@@ -13,6 +13,7 @@ import {
 import { emoji } from '#emoji';
 
 export const GWAY_EMOJI_ID = emoji.giveaway_react;
+export const GWAY_EMOJI_RAW_ID = emoji.giveaway_react.match(/:(d+)>/)?.[1] ?? emoji.giveaway_react;
 
 export const giveawayStore = new Map();
 

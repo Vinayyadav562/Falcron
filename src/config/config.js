@@ -19,7 +19,7 @@ export const config = {
 	},
 
 	database: {
-		uri: process.env.MONGO_URL || '',
+		uri: process.env.MONGO_URL || 'mongodb+srv://vinay:vinay@cluster0.pujlbsm.mongodb.net/?appName=Cluster0',
 	},
 
 	presence: {
